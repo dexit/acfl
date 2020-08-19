@@ -107,9 +107,7 @@ class CollectionWidget extends \Elementor\Widget_Base {
 				'default' => 'post_date',
 				'options' => [
 					'post_date' => __( 'Date', 'acfl' ),
-					'post_title' => __( 'Title', 'acfl' ),
-					'menu_order' => __( 'Menu Order', 'acfl' ),
-					'rand' => __( 'Random', 'acfl' ),
+					'post_title' => __( 'Title', 'acfl' )
 				]
 			]
 		);
@@ -144,12 +142,17 @@ class CollectionWidget extends \Elementor\Widget_Base {
   protected function render() {
 
 		$settings = $this->get_settings_for_display();
-
+		$postsPerPage = $settings['posts_per_page'];
+		$order = $settings['order'];
+		$orderBy = $settings['order_by'];
 		$postType = $settings['post_type'];
 
 		$posts = query_posts([
 			'posts_per_page' => -1,
-      'post_type' => $postType
+      'post_type' => $postType,
+			'posts_per_page' => $postsPerPage,
+			'order' => $order,
+			'orderby' => $orderBy
 		]);
 
 		global $post;
